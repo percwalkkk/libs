@@ -2964,78 +2964,6 @@ local Library do
                     PaddingRight = UDimNew(0, 8),
                     PaddingLeft = UDimNew(0, 8)
                 })
-
-                Items["Search"] = Instances:Create("Frame", {
-                    Parent = Items["OptionHolder"].Instance,
-                    Name = "\0",
-                    Size = UDim2New(1, -16, 0, 25),
-                    Position = UDim2New(0, 8, 0, 8),
-                    BorderColor3 = FromRGB(0, 0, 0),
-                    ZIndex = 5,
-                    BorderSizePixel = 0,
-                    BackgroundColor3 = FromRGB(22, 25, 29)
-                })  Items["Search"]:AddToTheme({BackgroundColor3 = "Inline"})
-
-                Instances:Create("UIGradient", {
-                    Parent = Items["Search"].Instance,
-                    Name = "\0",
-                    Rotation = 84,
-                    Color = RGBSequence{RGBSequenceKeypoint(0, FromRGB(255, 255, 255)), RGBSequenceKeypoint(1, FromRGB(211, 211, 211))}
-                }):AddToTheme({Color = function()
-                    return RGBSequence{RGBSequenceKeypoint(0, FromRGB(255, 255, 255)), RGBSequenceKeypoint(1, Library.Theme["Dark Gradient"])}
-                end})
-
-                Instances:Create("UICorner", {
-                    Parent = Items["Search"].Instance,
-                    Name = "\0",
-                    CornerRadius = UDimNew(0, 5)
-                })
-
-                Instances:Create("UIStroke", {
-                    Parent = Items["Search"].Instance,
-                    Name = "\0",
-                    Color = FromRGB(32, 36, 42),
-                    Transparency = 0.4000000059604645,
-                    ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-                }):AddToTheme({Color = "Border"})
-
-                Items["SearchIcon"] = Instances:Create("ImageLabel", {
-                    Parent = Items["Search"].Instance,
-                    Name = "\0",
-                    ScaleType = Enum.ScaleType.Fit,
-                    ImageTransparency = 0.5,
-                    BorderColor3 = FromRGB(0, 0, 0),
-                    Size = UDim2New(0, 20, 0, 20),
-                    AnchorPoint = Vector2New(0, 0.5),
-                    Image = "rbxassetid://71924825350727",
-                    BackgroundTransparency = 1,
-                    Position = UDim2New(0, 8, 0.5, 0),
-                    ZIndex = 5,
-                    BorderSizePixel = 0,
-                    BackgroundColor3 = FromRGB(255, 255, 255)
-                })  Items["SearchIcon"]:AddToTheme({ImageColor3 = "Image"})
-
-                Items["Input"] = Instances:Create("TextBox", {
-                    Parent = Items["Search"].Instance,
-                    Name = "\0",
-                    FontFace = Library.Font,
-                    AnchorPoint = Vector2New(0, 0.5),
-                    PlaceholderColor3 = FromRGB(185, 185, 185),
-                    PlaceholderText = "search",
-                    TextSize = 14,
-                    Size = UDim2New(1, -45, 0, 15),
-                    ClipsDescendants = true,
-                    BorderColor3 = FromRGB(0, 0, 0),
-                    Text = "",
-                    ZIndex = 5,
-                    Position = UDim2New(0, 35, 0.5, 0),
-                    BackgroundTransparency = 1,
-                    TextXAlignment = Enum.TextXAlignment.Left,
-                    TextColor3 = FromRGB(255, 255, 255),
-                    ClearTextOnFocus = false,
-                    BorderSizePixel = 0,
-                    BackgroundColor3 = FromRGB(255, 255, 255)
-                })
             end
 
             Items["RealDropdown"]:OnHover(function()
@@ -3370,11 +3298,6 @@ local Library do
 
             local SearchStepped
 
-            Items["Input"]:Connect("Focused", function()
-                if SearchStepped then
-                    return
-                end
-
                 SearchStepped = RunService.RenderStepped:Connect(function()
                     for Index, Value in Dropdown.Options do 
                         if StringFind(Value.Name:lower(), Items["Input"].Instance.Text:lower()) then 
@@ -3384,13 +3307,6 @@ local Library do
                         end
                     end
                 end)
-            end)
-
-            Items["Input"]:Connect("FocusLost", function()
-                if SearchStepped then
-                    SearchStepped:Disconnect()
-                    SearchStepped = nil
-                end
             end)
 
             local SearchData = {
@@ -7716,13 +7632,6 @@ local Library do
 
             local RenderStepped
 
-            Items["Input"]:Connect("Focused", function()
-                local PageSearchData = Library.SearchItems[Library.CurrentPage]
-
-                if not PageSearchData then
-                    return 
-                end
-
                 RenderStepped = RunService.RenderStepped:Connect(function()
                     for Index, Value in PageSearchData do 
                         local Name = Value.Name
@@ -7821,8 +7730,8 @@ local Library do
                     Name = "\0",
                     BorderColor3 = FromRGB(0, 0, 0),
                     BackgroundTransparency = 1,
-                    Position = UDim2New(0, 7, 0, 48),
-                    Size = UDim2New(1, -14, 1, -55),
+                    Position = UDim2New(0, 7, 0, 7),
+                    Size = UDim2New(1, -14, 1, -14),
                     ZIndex = 2,
                     BorderSizePixel = 0,
                     BackgroundColor3 = FromRGB(255, 255, 255)
